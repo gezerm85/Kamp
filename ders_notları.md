@@ -1,5 +1,6 @@
 
 
+
 ---
 
 # 📝 Git & Linux 101 Notları
@@ -50,6 +51,107 @@ git push origin main
 > ✅ **Push** → Sunucuya gönderim
 
 ---
+
+## 3. GitHub’a SSH ile Bağlanma
+
+HTTPS ile bağlanırken her push/pull işleminde kullanıcı adı ve **token** (veya şifre) girmek gerekir.
+Bunu kolaylaştırmak için **SSH anahtarı** ile güvenli bağlantı yapılır.
+
+📌 Adımlar:
+
+1. **Anahtar oluşturma:**
+
+```bash
+ssh-keygen -t ed25519 -C "email@ornek.com"
+```
+
+> Eğer `ed25519` desteklenmiyorsa:
+> `ssh-keygen -t rsa -b 4096 -C "email@ornek.com"`
+
+2. **SSH agent’i çalıştırma ve anahtarı ekleme:**
+
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+3. **Public key’i kopyalama:**
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+Bu çıktıyı GitHub → **Settings → SSH and GPG Keys → New SSH Key** kısmına ekle.
+
+4. **Bağlantıyı test et:**
+
+```bash
+ssh -T git@github.com
+```
+
+> Doğru eklediysen şu mesaj gelir:
+> `"Hi kullanıcı_adı! You've successfully authenticated..."`
+
+5. **SSH ile repo klonlama:**
+
+```bash
+git clone git@github.com:kullanici/repo.git
+```
+
+> HTTPS yerine `git@github.com:` formatı kullanılır.
+
+---
+
+## 4. Git Branch (Dal) Yönetimi
+
+* **Yeni branch oluşturma:**
+
+```bash
+git checkout -b yeni-ozellik
+```
+
+* **Branch değiştirme:**
+
+```bash
+git checkout main
+```
+
+* **Branch’leri listeleme:**
+
+```bash
+git branch
+```
+
+* **Branch silme:**
+
+```bash
+git branch -d eski-branch
+```
+
+---
+
+## 5. Git Durum Kontrolleri
+
+* **Durumu görme:**
+
+```bash
+git status
+```
+
+* **Log (geçmiş commit’ler):**
+
+```bash
+git log --oneline --graph
+```
+
+* **Değişiklikleri göster:**
+
+```bash
+git diff
+```
+
+---
+
 
 ## 3. CLI (Command Line Interface)
 
